@@ -3,10 +3,68 @@
 	<head>
 		<title>Create DOM elements</title>
 		<meta charset="UTF-8">
+		<style>
+			.container {
+				border: 1px solid black;
+				width: 200px;
+				height: 50px;
+			}
+			.upper-div {
+				display: flex;
+				flex-direction: row;
+				border-bottom: 1px solid black;
+			}
+			.lower-div {
+				display: flex;
+				flex-direction: row;
+			}
+			.child-div-left{
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				font-weight: bold;
+				height: 25px;
+				width: 100px;
+			}
+			.child-div-right{
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				border-left: 1px solid black;
+				font-weight: bold;
+				height: 25px;
+				width: 100px;
+			}
+		</style>
+		
 	</head>
 	<body>
 		<script>
-			// a JavaScript code here ...
+			const container = document.createElement("div");
+			container.className = "container";
+			const upperDiv = document.createElement("div");
+			const lowerDiv = document.createElement("div");
+			const div1 = document.createElement("div");
+			div1.innerHTML = "1";
+			const div2 = document.createElement("div");
+			div2.innerHTML = "2";
+			const div3 = document.createElement("div");
+			div3.innerHTML = "3";
+			const div4 = document.createElement("div");
+			div4.innerHTML = "4";
+			div1.className = "child-div-left";
+			div3.className = "child-div-left";
+			div2.className = "child-div-right";
+			div4.className = "child-div-right";
+			upperDiv.appendChild(div1);
+			upperDiv.appendChild(div2);
+			lowerDiv.appendChild(div3);
+			lowerDiv.appendChild(div4);
+			upperDiv.className = "upper-div";
+			lowerDiv.className = "lower-div";
+			container.appendChild(upperDiv);
+			container.appendChild(lowerDiv);
+			document.body.appendChild(container);
 			
 		</script>
 	</body>
