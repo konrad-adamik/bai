@@ -6,11 +6,13 @@ class Students {
     }
 
     startWith(letter){
-        return this.names.filter(name => name.charAt(0) === letter)
+        const startWithNames = this.names.filter(name => name.charAt(0) === letter)
+        return new Students(startWithNames);
     }
 
     sort() {
-        return this.names.sort((o1, o2) => o1.localeCompare(o2)) 
+        const sortedNames = this.names.sort((o1, o2) => o1.localeCompare(o2));
+        return new Students(sortedNames);
     }
 
     get() {
@@ -23,9 +25,7 @@ class Students {
 }
 
 students = new Students(names);
-console.log(students.get());
 console.log(students.sort());
-console.log(students.getFirst(2));
 console.log(students.startWith('P'));
 console.log(students.startWith('M').sort());
 console.log(students.sort().getFirst(4));
