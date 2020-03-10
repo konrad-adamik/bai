@@ -27,6 +27,7 @@ class Students {
 students = new Students(names);
 console.log(students.sort());
 console.log(students.startWith('P'));
+console.log(students.getFirst(2));
 console.log(students.startWith('M').sort());
 console.log(students.sort().getFirst(4));
 console.log(students.startWith('M').sort().getFirst(2));
