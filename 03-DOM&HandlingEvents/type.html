@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<h1>How fast are your fingers?</h1>
-		<h3>You have 30 seconds. Just start typing...</h3>
+		<h3 id="header">You have 30 seconds. Just start typing...</h3>
 		<p>Nam strzelać nie kazano. - Wstąpiłem na działo<br>
 		I spójrzałem na pole; dwieście armat grzmiało.<br>
 		Artyleryi ruskiej ciągną się szeregi,<br>
@@ -20,10 +20,50 @@
 		Przeciw nim sterczy biała, wąska, zaostrzona,<br>
 		Jak głaz bodzący morze, reduta Ordona.</p>
 		
-		<textarea rows="15" cols="50"></textarea><br>
+		<textarea oninput="startTimer()" id="text-area" rows="15" cols="50"></textarea><br>
+
+		<p id="result"/>
 		
 		<script>
-			// a JavaScript code here ...
+			this.headerElement = document.getElementById('header');
+			this.textAreaElement = document.getElementById('text-area');
+			this.resultElement = document.getElementById('result');
+			function startTimer() {
+				if (!this.timerStarted) {
+					this.timerStarted = true;
+					this.seconds = 0;
+					this.resultElement.innerText = "";
+					this.headerElement.innerText = "You have been typing for 0 seconds.";
+
+					const cancelCounter = setInterval(startCounter, 1000);
+
+					const cancelTimer = setInterval(() => {
+						clearInterval(cancelCounter);
+						this.headerElement.innerText = "You have 30 seconds. Just start typing..."
+						this.timerStarted = false;
+						countResult();
+						clearInterval(cancelTimer)
+						this.textAreaElement.blur();
+						this.textAreaElement.value = "";
+					}, 30000)
+				}
+			}
+
+			function countResult() {
+				const characterList = this.textAreaElement.value.replace(/ /g, "").split("\n").join();
+				const wordList = [];
+				this.textAreaElement.value.replace(/[$&+,:;=?@#|'<>.^*()%!-]/g, "").split("\n").forEach(textLine => {
+					const words = textLine.split(" ");
+					wordList.push(...words.filter(word => word !== ""));
+				});
+				this.resultElement.innerText = `You have typed ${wordList.length} words and ${characterList.length} characters`;
+			}
+
+			function startCounter() {
+				this.seconds += 1;
+				const header = document.getElementById('header');
+				this.headerElement.innerText = "You have been typing for " + seconds + " seconds.";
+			}
 			
 		</script>
 		
