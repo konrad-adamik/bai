@@ -5,22 +5,58 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
-		<h1>Another Brick in the Wall</h1>
-		<h3>Pink Floyd</h3>
-		<p>We don't need no education<br>
-		We don't need no thought control<br>
-		No dark sarcasm in the classroom<br>
-		Teachers leave them kids alone<br>
-		Hey! Teachers! Leave them kids alone<br>
-		All in all it's just another brick in the wall<br>
-		All in all you're just another brick in the wall</p>
+		<h1 id="song-title" onclick="onSongTitleClick(this)">Another Brick in the Wall</h1>
+		<h3 id="artist" onclick="onArtistClicked(this)">Pink Floyd</h3>
+		<p id="lyrics" oncopy="onCopyLyrics()" onclick="onLyricsClicked(this)">
+			We don't need no education<br>
+			We don't need no thought control<br>
+			No dark sarcasm in the classroom<br>
+			Teachers leave them kids alone<br>
+			Hey! Teachers! Leave them kids alone<br>
+			All in all it's just another brick in the wall<br>
+			All in all you're just another brick in the wall
+		</p>
 		
-		<p style="visibility: hidden;">Pink Floyd were an English rock band formed in London.<br>
+		<p id="description" style="visibility: hidden;" onclick="onDescriptionClicked(this)">Pink Floyd were an English rock band formed in London.<br>
 		They achieved international acclaim with their progressive<br>
 		and psychedelic music.</p>
 		
 		<script>
-			// a JavaScript code here ...
+			document.addEventListener("dblclick", event => {
+				onPageDoubleClicked();
+			})
+			function onSongTitleClick(element) {
+				element.innerHTML = element.innerHTML + "<b> (Part 2) </b>";
+				element.onclick = null;
+			}
+
+			function onArtistClicked(element) {
+				const descriptionElement = document.getElementById("description");
+				descriptionElement.style.visibility = "visible";
+				element.onclick = null;
+			}
+
+			function onLyricsClicked(element) {
+				element.style.fontStyle = "italic";
+				element.onclick = null;
+			}
+
+			function onPageDoubleClicked() {
+				document.body.style.background = "yellow";
+			}
+
+			function onCopyLyrics(event) {
+				window.alert("COPYRIGHT NOTICE - These lyrics are copyrighted!")
+			}
+
+			function onDescriptionClicked(element) {
+				if (element.style.visibility === "visible") {
+					const bandPicture = document.createElement("img");
+					bandPicture.setAttribute("src", "https://upload.wikimedia.org/wikipedia/en/d/d6/Pink_Floyd_-_all_members.jpg");
+					document.body.appendChild(bandPicture);
+					element.onclick = null;
+				}
+			}
 			
 		</script>
 	</body>
