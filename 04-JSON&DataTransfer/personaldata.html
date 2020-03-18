@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Personal Data</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Personal Data</h1>
+		<input type="button" value="Display Personal Data" onclick="onDisplayPersonalData()" >
+        <ol id="personal-data-list"></ol>
+		<script>
+            const personalDataList = document.getElementById("personal-data-list");
+			function onDisplayPersonalData() {
+				const request = new XMLHttpRequest();
+				request.onreadystatechange = function(){
+					if (this.readyState === 4 && this.status === 200) {
+						const response = JSON.parse(this.response);
+						response.forEach(personData => addLine(personData))
+					}
+				};
+				// using live server extension on port 5500
+				request.open("GET", "http://127.0.0.1:5500/04-JSON&DataTransfer/people.json");
+				request.send();
+            }
+            function addLine(personData) {
+                const newLine = document.createElement("li");
+                newLine.innerText = `${personData.name} ${personData.surname.toUpperCase()}, ${personData.country}`;
+                personalDataList.appendChild(newLine);
+            }
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Data Table</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Data Table</h1>
+		<table id="personalData" class="display" width="100%"></table>
+
+		<script>
+             $(document).ready(() => {
+                getPersonalData();
+            })
+            function getPersonalData() {
+				const request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+					if (this.readyState === 4 && this.status === 200) {
+                        const response = JSON.parse(this.response); 
+                        const tableData = createTableData(response);
+						$('#personalData').DataTable(
+                            {
+                                data: tableData,
+                                columns: [
+                                    { title: "Name" },
+                                    { title: "Surname" },
+                                    { title: "Age" },
+                                    { title: "Country" },
+                                    { title: "Email" },
+                                ]
+                            } 
+                        );
+					}
+				};
+				// using live server extension on port 5500
+				request.open("GET", "http://127.0.0.1:5500/04-JSON&DataTransfer/people.json");
+				request.send();
+            }
+            function createTableData(response) {
+                const tableData = [];
+                response.forEach(result => {
+                    tableData.push(Object.values(result));
+                });
+                return tableData;
+            }
+		</script>
+
+	</body>
+</html>

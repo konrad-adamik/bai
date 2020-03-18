@@ -7,11 +7,23 @@
 	<body>
 		<h1>Student</h1>
 		<p>Open a console and then click the button</p>
-		<input type="button" value="Display student's data">
+		<input type="button" value="Display student's data" onclick="onDisplayStudentsDataClicked()" >
 		<p id="personalData"></p>
 
 		<script>
-
+			function onDisplayStudentsDataClicked() {
+				const request = new XMLHttpRequest();
+				request.onreadystatechange = function(){
+					if (this.readyState === 4 && this.status === 200) {
+						const response = JSON.parse(this.response);
+						console.log(response);
+						document.getElementById("personalData").innerText = `${response.name} ${response.surname}`
+					}
+				};
+				// using live server extension on port 5500
+				request.open("GET", "http://127.0.0.1:5500/04-JSON&DataTransfer/adamik_konrad.json");
+				request.send();
+			}
 		</script>
 
 	</body>

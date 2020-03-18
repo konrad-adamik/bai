@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Exchange Rates</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Exchange Rates</h1>
+		<p id="eur-rate">Current EUR rate</p>
+		<p id="usd-rate">Current USD rate</p>
+		<p id="gbp-rate">Current GBP rate</p>
+		<p id="personalData"></p>
+
+		<script>
+             $(document).ready(() => {
+                requestCurrencyRate("eur");
+                requestCurrencyRate("usd");
+                requestCurrencyRate("gbp");
+            })
+            function requestCurrencyRate(currencyCode) {
+                const request = new XMLHttpRequest();
+				request.onreadystatechange = function(){
+					if (this.readyState === 4 && this.status === 200) {
+                        const response = JSON.parse(this.response);
+                        const responseRates = response.rates[0];
+                        setRate(currencyCode, responseRates.effectiveDate, responseRates.mid)
+					}
+				};
+				request.open("GET", `http://api.nbp.pl/api/exchangerates/rates/a/${currencyCode}/?format=json`);
+				request.send();
+            }
+            function setRate(currencyCode, date, rate) {
+                document.getElementById(`${currencyCode}-rate`).innerHTML += ` for ${date} is ${rate}`;
+            }
+		</script>
+
+	</body>
+</html>
