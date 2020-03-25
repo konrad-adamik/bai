@@ -4,8 +4,24 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+  <div id="app">
+    <span>DO WYKONANIA</span>
+    <ol 
+      style="margin-block-start: 0;
+      padding-inline-start: 15px;"
+    >
+      <li v-for="(entry, index) in orderedTodo" :key="index">
+        {{ entry }}
+      </li>
+    </ol>
+  </div>
   <script>
     var app = new Vue({
+      computed: {
+        orderedTodo() {
+          return this.todo.sort();
+        }
+      },
       el: '#app',
       data: {
         todo: [
@@ -13,6 +29,7 @@
           'Feed cat',
           'Pay cable bill',
           'Go shopping'
+        ]
       }
     });
   </script>

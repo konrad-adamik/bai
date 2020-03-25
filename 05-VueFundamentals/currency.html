@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th, td {        
+        min-width: 150px;
+        padding-left: 5px;
+      }
+      th {
+        text-align: start;
+      }
+    </style>
+</head>
+<body>
+  <div id="app">
+      <table style="min-width: 450px;">
+        <tr>
+          <th>Currency</th>
+          <th>Code</th>
+          <th>Mid</th>
+        </tr>
+        <tr v-if="currencyList.length > 0" v-for="(entry, index) in currencyList">
+          <td>{{ entry.currency }}</td>
+          <td>{{ entry.code }}</td>
+          <td>{{ entry.mid }}</td>
+        </tr>
+      </table>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        currencyList: [],
+      },
+      beforeMount() {
+        this.requestCurrenciesRate();
+      },
+      methods: {
+        async requestCurrenciesRate() {
+                const request = new XMLHttpRequest();
+                const vm = this;
+				request.onreadystatechange = function(){
+					if (this.readyState === 4 && this.status === 200) {
+                        const response = JSON.parse(this.response);
+                        const responseRates = response[0].rates;
+                        vm.currencyList = responseRates;
+					}
+                };          
+				request.open("GET", "http://api.nbp.pl/api/exchangerates/tables/a/?format=json");
+                request.send();
+                console.log(this.currencyList)
+            }
+      }
+    });
+  </script>
+</body>
+</html>

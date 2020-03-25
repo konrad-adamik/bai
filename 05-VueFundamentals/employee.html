@@ -4,17 +4,42 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+  <div id="app">
+    <div v-for="(employee, index) in employees" :key="index" style="margin-bottom: 10px;">
+        <div><b>EMPLOYEE RECORD</b></div>
+        <div>{{ 'Name 1: ' + employee.name1 }}</div>
+        <div v-if="employee.name2">{{ 'Name 2: ' + employee.name2 }}</div>
+        <div>{{ 'Surname: ' + employee.surname }}</div>
+        <div v-if="!employee.foreigner">{{ 'Pesel: ' + employee.pesel }}</div>
+        <div v-else>{{ 'Nationality: ' + employee.nationality }}</div>
+        <div>{{ 'Address: ' + employee.surname }}</div>
+    </div>
+  </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
-        name1: 'Adam',
-        name2: 'Jan',
-        surname: 'Majewski',
-        foreigner: false,
-        nationality: 'Polish',
-        pesel: '92021708229',
-        address: 'ul. Szeroka 3, Kraków',
+        employees: [
+          {
+            name1: 'Adam',
+            name2: 'Jan',
+            surname: 'Majewski',
+            foreigner: false,
+            nationality: 'Polish',
+            pesel: '92021708229',
+            address: 'ul. Szeroka 3, Kraków',
+          },
+          {
+            name1: 'John',
+            name2: '',
+            surname: 'Brown',
+            foreigner: true,
+            nationality: 'USA',
+            pesel: '',
+            address: 'Holland Drive 4, Chicago',
+          }
+        ]
+      }
     });
   </script>
 

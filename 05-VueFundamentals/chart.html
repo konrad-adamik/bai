@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+  <div id="app">
+    <canvas id="chart" width="800" height="600"></canvas>
+  </div>
   <script>
     var app = new Vue({
       el: '#app',
+      computed: {
+        labels() {
+            return this.languages.map(entry => {
+                return entry.language;
+            });
+        },
+        data() {
+            return this.languages.map(entry => {
+                return entry.popularity;
+            });
+        }
+      },
       data: {
-        films: [
+        languages: [
           {
             language: 'Python',
             popularity: 25.95
@@ -30,6 +47,29 @@
             popularity: 7.37
           }
         ] 
+      },
+      mounted() {
+        this.createChart();
+      },
+      methods: {
+        createChart() {
+          const ctx = document.getElementById('chart').getContext('2d');
+          const myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: this.labels,
+                datasets: [
+                  {
+                    label: "Popularnośc języków w procentach",
+                    backgroundColor: "blue",
+                    borderColor: "blue",
+                    data: this.data
+                  }
+                ]
+              },
+              options: {}
+          });          
+        }
       }
     });
   </script>
