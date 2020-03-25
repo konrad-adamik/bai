@@ -41,20 +41,19 @@
         this.requestCurrenciesRate();
       },
       methods: {
-        async requestCurrenciesRate() {
-                const request = new XMLHttpRequest();
-                const vm = this;
-				request.onreadystatechange = function(){
-					if (this.readyState === 4 && this.status === 200) {
-                        const response = JSON.parse(this.response);
-                        const responseRates = response[0].rates;
-                        vm.currencyList = responseRates;
-					}
-                };          
-				request.open("GET", "http://api.nbp.pl/api/exchangerates/tables/a/?format=json");
-                request.send();
-                console.log(this.currencyList)
-            }
+        requestCurrenciesRate() {
+            const request = new XMLHttpRequest();
+            const vm = this;
+            request.onreadystatechange = function(){
+              if (this.readyState === 4 && this.status === 200) {
+                    const response = JSON.parse(this.response);
+                    const responseRates = response[0].rates;
+                    vm.currencyList = responseRates;
+              }
+            };          
+            request.open("GET", "http://api.nbp.pl/api/exchangerates/tables/a/?format=json");
+            request.send();
+        }
       }
     });
   </script>
