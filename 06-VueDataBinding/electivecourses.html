@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <h1>Body Mass Index</h1>
+    <div id="app">
+      <label for="BAI">Bogate aplikacje internetowe</label>
+      <input type="checkbox" value="BAI" v-model="courses" /> <br />
+
+      <label for="MIHE">Marketing i handel elektroniczny</label>
+      <input type="checkbox" value="MIHE" v-model="courses" /> <br />
+
+      <label for="MOP">Metody optymalizacji procesów</label>
+      <input type="checkbox" value="MOP" v-model="courses" /> <br />
+
+      <label for="MISK">Modelowanie i symulacja komputerowa</label>
+      <input type="checkbox" value="MISK" v-model="courses" /> <br />
+
+      <label for="PK">Programowanie kreatywne</label>
+      <input type="checkbox" value="PK" v-model="courses" /> <br />
+
+      <p>{{ "Ilośc przedmiotów wybranych " + courses.length }}</p>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        computed: {
+          mHeight() {
+            if (this.height <= 0) {
+              return 0;
+            }
+            return this.height / 100;
+          },
+          bmi() {
+            if (this.height <= 0) {
+              return "";
+            }
+            return (this.weight / (this.mHeight * this.mHeight)).toFixed(2);
+          },
+        },
+        data: {
+          courses: [],
+        },
+      });
+    </script>
+  </body>
+</html>
