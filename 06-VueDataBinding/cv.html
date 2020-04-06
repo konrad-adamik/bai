@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <span>Imię:</span>
+      <input type="text" v-model="cvObject.name" /> <br /><br />
+      <span>Nazwisko:</span>
+      <input type="text" v-model="cvObject.surname" /> <br /><br />
+      <span>Wiek:</span>
+      <input type="number" v-model.number="cvObject.age" /> <br /><br />
+      <span>Płeć:</span>
+      <select v-model="cvObject.gender">
+        <option value="male">Mężyczna</option>
+        <option value="female">Kobieta</option> </select
+      ><br /><br />
+      <span>Wykształcenie:</span>
+      <select v-model="cvObject.education">
+        <option value="none">Brak</option>
+        <option value="basic">Podstawowe</option>
+        <option value="medium">Średnie</option>
+        <option value="high">Wyższe</option> </select
+      ><br /><br />
+      <span>Umiejętności:</span> <br />
+      <label for="MOP">Obsługa Komputera</label>
+      <input
+        type="checkbox"
+        value="computerHandling"
+        v-model="cvObject.abilities"
+      />
+      <br />
+
+      <label for="MISK">Prawo Jazdy</label>
+      <input
+        type="checkbox"
+        value="drivingLicense"
+        v-model="cvObject.abilities"
+      />
+      <br />
+
+      <label for="PK">Kreatywność</label>
+      <input type="checkbox" value="creativity" v-model="cvObject.abilities" />
+      <br />
+
+      <label for="PK">Praca w zespole</label>
+      <input type="checkbox" value="teamwok" v-model="cvObject.abilities" />
+      <br /><br />
+
+      <button @click="onSaveClicked">ZAPISZ</button>
+      <br />
+      <button @click="onReadClicked">WCZYTAJ</button>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          cvObject: {
+            name: "",
+            surname: "",
+            age: 0,
+            gender: "",
+            education: "",
+            abilities: [],
+          },
+        },
+        methods: {
+          onSaveClicked() {
+            const json = JSON.stringify(this.cvObject);
+            window.localStorage.setItem("cvObject", json);
+          },
+          onReadClicked() {
+            this.cvObject = JSON.parse(window.localStorage.getItem("cvObject"));
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

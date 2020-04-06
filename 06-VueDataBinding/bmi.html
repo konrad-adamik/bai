@@ -7,9 +7,9 @@
     <h1>Body Mass Index</h1>
     <div id="app">
       <span>Waga: </span>
-      <input v-model.number="weight" /> kg<br />
+      <input v-model.number="weight" type="number" /> kg<br />
       <span>Wzrost: </span>
-      <input v-model.number="height" /> cm
+      <input v-model.number="height" type="number" /> cm
       <p>{{ "Wskaźnik BMI: " + bmi }}</p>
     </div>
     <script>
