@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="film-one">
+      <filmcomponentone />
+    </div>
+    <div id="film-two">
+      <filmcomponenttwo />
+    </div>
+    <div id="film-three">
+      <filmcomponentthree />
+    </div>
+    <script>
+      const filmone = new Vue({
+        el: "#film-one",
+        components: {
+          filmcomponentone: {
+            template: `
+            <div>
+                <h1>Avengers: Infinity War</h1>
+                <p>Anthony Russo, Joe Russo</p>
+                <p>2018</p>
+            </div>`,
+          },
+        },
+      });
+      const filmtwo = new Vue({
+        el: "#film-two",
+        components: {
+          filmcomponenttwo: {
+            template: `
+            <div>
+                <h1>Blade Runner</h1>
+                <p>Ridley Scott</p>
+                <p>1982</p>
+            </div>`,
+          },
+        },
+      });
+      const filmthree = new Vue({
+        el: "#film-three",
+        components: {
+          filmcomponentthree: {
+            template: `
+            <div>
+                <h1>Inception</h1>
+                <p>	Christopher Nolan</p>
+                <p>2010 </p>
+            </div>`,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

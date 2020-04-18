@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="university">
+      <unviersitycomponent />
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#university",
+        components: {
+          unviersitycomponent: {
+            template: `
+        <div>
+            <h1>Cracow University of Economics</h1>
+            <p> 31 - 510 Kraków, Rakowicka 27, POLAND</p>
+        </div>`,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
